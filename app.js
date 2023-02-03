@@ -33,6 +33,12 @@ app.get('/listUsers', function (req, res) {
 	start();
  })
 
+ app.post('/listUsers', function (req, res) {
+	console.log( res );
+	res.send( {data:"ssss"} );
+	start();
+ })
+
  app.post('/gpt', function (req, res) {
 	const {data} = req.body;
 	console.log( 	data );
