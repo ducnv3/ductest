@@ -1,13 +1,13 @@
 var express = require('express');
 var app = express();
-var router = express.Router();
+const path = require('path');
 
 const http = require('http');
 const { Configuration, OpenAIApi } = require("openai");
 app.use(express.json()) 
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 const openai = new OpenAIApi(configuration);
@@ -26,6 +26,12 @@ var server = app.listen(process.env.PORT, function () {
 //  // start();
 // });
 
+const router = express.Router();
+app.use('/', router);
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
 
 app.get('/listUsers', function (req, res) {
 	console.log( res );
@@ -35,8 +41,27 @@ app.get('/listUsers', function (req, res) {
 
  app.post('/listUsers', function (req, res) {
 	console.log( res );
-	res.send( {data:"ssss"} );
-	start();
+	res.send( {
+		data: {
+			"id": "cmpl-6gAwDSaoqyxaTxFlLZ2YV0Uo5au2n",
+			"object": "text_completion",
+			"created": 1675509841,
+			"model": "text-davinci-003",
+			"choices": [
+				{
+					"text": "\n\nBill Gates là nhà tỉ phú, nhà sáng lập và CEO của tập đoàn Microsoft. Ông là một trong những con người giàu nhất trên thế giới và đã tích cực hỗ trợ công tác quỹ từ thiện.",
+					"index": 0,
+					"logprobs": null,
+					"finish_reason": "stop"
+				}
+			],
+			"usage": {
+				"prompt_tokens": 6,
+				"completion_tokens": 138,
+				"total_tokens": 144
+			}
+		}
+	} );
  })
 
  app.post('/gpt', function (req, res) {
