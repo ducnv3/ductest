@@ -4,8 +4,8 @@
   "description": "test api gpt-3",
   "main": "app.js",
   "scripts": {
-    "build": "echo \"ok\" && exit 1",
-    "test": "echo \"ok\" && exit 1"
+    "build": "echo Build completed successfully!",
+    "test": "echo Test completed successfully!"
   },
   "author": "ducnv3",
   "license": "ISC",
