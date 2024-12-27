@@ -33,7 +33,7 @@ router.get('/',function(req,res){
 });
 
 app.get('/listUsers', function (req, res) {
-	res.send( {data:"ssssaaaa2222"} );
+	res.send( {data:"s2222"} );
 	start();
  })
 
