@@ -10,7 +10,7 @@ const userAction = async () => {
       'Content-Type': 'application/json'
     }
   });
-  const myJson = await response.json(); //extract JSON from the http response
+  const myJson = await response.json(); 
   console.log(myJson.data.choices[0].text);
   document.getElementById("chatbox").innerHTML += "<p style=\"padding: 5;color: green;font-size: 18\">GPT:</p>" + myJson.data.choices[0].text;
   document.getElementById("waitLabel").style.display = "none";
@@ -18,7 +18,7 @@ const userAction = async () => {
   document.getElementById("submitmsg").disabled = false
   
 }
-//userAction();
+
 function sendChat() {
     if(document.getElementById("usermsg").value.length==0) return;
     document.getElementById("waitLabel").style.display = "block";
