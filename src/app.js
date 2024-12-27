@@ -34,13 +34,11 @@ router.get('/',function(req,res){
 });
 
 app.get('/listUsers', function (req, res) {
-	console.log( res );
 	res.send( {data:"ssss"} );
 	start();
  })
 
  app.post('/listUsers', function (req, res) {
-	console.log( res );
 	res.send( {
 		data: {
 			"id": "cmpl-6gAwDSaoqyxaTxFlLZ2YV0Uo5au2n",
@@ -66,7 +64,6 @@ app.get('/listUsers', function (req, res) {
 
  app.post('/gpt', function (req, res) {
 	const {data} = req.body;
-	console.log( 	data );
 	start(data, res);
 	//res.send( {data:"ssss"} );
  })
@@ -83,7 +80,6 @@ async function start(value, res) {
 	  stop: [" Human:", " AI:"],
 	});
 	
-	console.log(response.data);
 	res.send( {data: response.data} );
 }
 
