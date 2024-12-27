@@ -30,7 +30,6 @@ const router = express.Router();
 app.use('/', router);
 router.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/index.html'));
-  //__dirname : It will resolve to your project folder.
 });
 
 app.get('/listUsers', function (req, res) {
@@ -65,7 +64,6 @@ app.get('/listUsers', function (req, res) {
  app.post('/gpt', function (req, res) {
 	const {data} = req.body;
 	start(data, res);
-	//res.send( {data:"ssss"} );
  })
 
 async function start(value, res) {
