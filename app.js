@@ -15,7 +15,7 @@ const openai = new OpenAIApi(configuration);
 const hostname = '127.0.0.1';
 const port = 3000;
 
-var server = app.listen(process.env.PORT, function () {
+var server = app.listen(port, function () {
 	var host = server.address().address
 	var port = server.address().port
 	console.log("Example app listening at http://%s:%s", host, port)
