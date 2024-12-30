@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME = "local-image-name"            // Tên Docker image
+        CONTAINER_NAME = "local-container-name"    // Tên Docker container
+        APP_PORT = "3000"                          // Port container lắng nghe
+        HOST_PORT = "8888"  
+    }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning repository...'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "*/main"]], // Thay main bằng nhánh mong muốn
+                    userRemoteConfigs: [[url: 'https://github.com/ducnv3/ductest.git']]
+                ])
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker image...'
+                script {
+                    dockerImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        stage('Run Docker Container') {
+            steps {
+                echo 'Running Docker container...'
+                script {
+                    // Dừng container nếu đang chạy
+                    sh """
+                    if [ \$(docker ps -aq -f name=${CONTAINER_NAME}) ]; then
+                        docker rm -f ${CONTAINER_NAME}
+                    fi
+                    """
+                    // Chạy container từ image vừa build
+                    sh """
+                    docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${APP_PORT} ${IMAGE_NAME}:${env.BUILD_NUMBER}
+                    """
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
+    }
+}
