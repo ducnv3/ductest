@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Building Docker image...'
                 script {
-                    dockerImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("${IMAGE_NAME}")
                 }
             }
         }
@@ -32,12 +32,12 @@ pipeline {
                     // Dừng container nếu đang chạy
                     sh """
                     if [ \$(docker ps -aq -f name=${CONTAINER_NAME}) ]; then
-                        docker rm -f ${CONTAINER_NAME}
+                        docker rm -f ${CONTAINER_NAME}:${env.BUILD_NUMBER}
                     fi
                     """
                     // Chạy container từ image vừa build
                     sh """
-                    docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${APP_PORT} ${IMAGE_NAME}:${env.BUILD_NUMBER}
+                    docker run -d --name ${CONTAINER_NAME} -p ${HOST_PORT}:${APP_PORT} ${IMAGE_NAME}
                     """
                 }
             }
