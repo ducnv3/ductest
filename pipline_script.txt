@@ -13,7 +13,7 @@ pipeline {
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: "*/main"]], // Thay main bằng nhánh mong muốn
-                    userRemoteConfigs: [[url: 'https://github.com/ducnv3/ductest.git']]
+                    userRemoteConfigs: [[url: 'https://github.com/KKKNK-Buile-dev/ductest.git']]
                 ])
             }
         }
